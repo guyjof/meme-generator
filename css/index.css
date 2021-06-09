@@ -1,3 +1,21 @@
+/* 
+body background color: #22252c
+main section background color: #383b42
+
+main gradient start color: #0f9bb3
+main gradient end color: #30bb72
+
+nav accsent color: #fff
+
+serch bar background color: #22252c
+serch bar text color: #76787c
+
+scroll bar background color: #22252c
+
+keywords background color: #87898d
+keywords color: #fefefe
+*/
+
 * {
   box-sizing: border-box;
 }
@@ -7,4 +25,35 @@ h1,
 h2,
 h3 {
   margin: 0;
+}
+
+body {
+  background-color: #22252c;
+  padding: 15px 7px;
+}
+
+header {
+  padding: 0.75em 80px;
+  color: #fff;
+  background-image: linear-gradient(to right, #0f9bb3, #30bb72);
+  border-radius: 3em;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+}
+
+header nav {
+  display: flex;
+  gap: 24px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  padding: 1.375em;
+}
+
+.grid-container {
+  display: grid;
 }
