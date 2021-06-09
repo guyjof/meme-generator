@@ -3,7 +3,7 @@ Functionality: Image-Gallery
 
 Use the square images from “meme-imgs(square)” folder
 
-1.Bonus - Supporting non-square images. In case you do it – use the images from “meme-imgs(various aspect ratios)” folder
+///1.Bonus - Supporting non-square images. In case you do it – use the images from “meme-imgs(various aspect ratios)” folder///
 
 2. Bonus - Search/Filter: The user should be able to search/filter the images by typing in a SEARCH-BOX letters. Relevant images shall be presented/filtered while typing. Focusing and typing in the SEARCH-BOX shall present an initial list of keywords (use <datalist>)
 

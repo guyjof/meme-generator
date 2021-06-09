@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/editor.css">
+    <title>Meme Generator</title>
+</head>
+
+<body>
+    <header>
+        <h1><a href="index.html">logo</a></h1>
+        <nav>
+            <div class="nav-btns"><a href="../index.html">Gallery</a><a href="about.html">About</a></div>
+        </nav>
+    </header>
+    <main>
+        <div class="img-container">
+            <img src="../img/5.jpg">
+        </div>
+        <div class="editor-controls">
+            <div><input class="text" type="text"></div>
+            <div class="text-controls">
+                <button class="move-text">↑↓</button>
+                <button class="add-text">+</button>
+                <button class="delete-text">🗑</button>
+            </div>
+            <div class="controls-grid">
+                <button class="item-1">1</button>
+                <button class="item-2">2</button>
+                <button class="item-3">3</button>
+                <button class="item-4">4</button>
+                <button class="item-5">5</button>
+                <select class="item-6" name="font" id="font">
+                    <option class="impact" value="impact">IMPACT</option>
+                    <option class="poppins" value="poppins">Poppins</option>
+                    <option class="raleway" value="raleway">Raleway</option>
+                    <option class="rubik" value="rubik">Rubik</option>
+                    <option class="amatic" value="amatic">Amatic</option>
+                </select>
+                <button class="item-7">7</button>
+                <button class="item-8">8</button>
+            </div>
+            <div class="stickers">
+                <button>◀︎</button>
+                stickers
+                <button>▶︎</button>
+            </div>
+
+            <div class="export">
+                <button class="share">↪︎ Share</button>
+                <button class="download">⇩ Download</button>
+            </div>
+
+
+        </div>
+
+    </main>
+
+    <script src="js/services/storageServices.js"></script>
+    <script src="js/services/util.js"></script>
+    <script src="js/controller.js"></script>
+</body>
+
+</html>

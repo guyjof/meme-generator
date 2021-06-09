@@ -1,0 +1,67 @@
+@font-face {
+  font-family: Poppins-Light;
+  src: url(../fonts/Poppins/Poppins-Light.ttf);
+}
+@font-face {
+  font-family: Poppins-Medium;
+  src: url(../fonts/Poppins/Poppins-Medium.ttf);
+}
+@font-face {
+  font-family: Poppins-Regular;
+  src: url(../fonts/Poppins/Poppins-Regular.ttf);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: Poppins-Light;
+}
+
+body {
+  background-color: #22252c;
+  padding: 15px 7px;
+  color: #fff;
+  height: 100vh;
+}
+
+header {
+  padding: 0.75em 80px;
+  background-image: linear-gradient(to right, #0f9bb3, #30bb72);
+  border-radius: 3em;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  margin-block-end: 16px;
+}
+h1 {
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+header nav {
+  display: flex;
+  gap: 24px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-btns > a {
+  text-decoration: none;
+  padding: 0.2em 1.375em;
+  font-family: Poppins-regular;
+}
+.nav-btns > a:focus {
+  color: #26b286;
+  background-color: #fff;
+  border-radius: 3em;
+}
