@@ -1,12 +1,14 @@
 'use strict'
-const g = 'YASSSS'
-var gCanvas;
-var gCtx;
+var currImg;
+
 
 function init() {
-    gCanvas = document.querySelector('canvas');
-    gCtx = gCanvas.getContext('2d')
     addListeners()
+    renderCanvas()
+}
+
+function renderImg() {
+    console.log(g);
 }
 
 function addListeners() {
@@ -26,39 +28,3 @@ function addTouchListeners() {
     // gCanvas.addEventListener('touchmove', draw);
 }
 
-function onMoveText() {
-    console.log(g);
-}
-function onAddText() {
-    console.log(g);
-}
-function onDeleteText() {
-    console.log(g);
-}
-function onFontBigger() {
-    console.log(g);
-}
-function onFontSmaller() {
-    console.log(g);
-}
-function onFontDirection(dir) {
-    console.log(g);
-}
-function onSetFont() {
-    console.log(g);
-}
-function onFontUnderLine() {
-    console.log(g);
-}
-function onFontColor() {
-    console.log(g);
-}
-function onMoveStickers(diff) {
-    console.log(g);
-}
-function onShare() {
-    console.log(g);
-}
-function onDownload() {
-    console.log(g);
-}

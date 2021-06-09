@@ -18,16 +18,18 @@
     </header>
     <main>
         <div class="img-container">
-            <canvas class="canvas"></canvas>
-            <!-- <canvas class="canvas" width="500" height="500"></canvas> -->
-            <!-- <img src="../img/5.jpg"> -->
+            <canvas class="canvas" width="500" height="500"></canvas>
         </div>
         <div class="editor-controls">
-            <div><input class="text" type="text"></div>
+            <form>
+                <div><input class="text" type="text" placeholder="CAN'T GET FIRED" oninput=" getText(this.value)">
+                </div>
+            </form>
             <div class="text-controls">
                 <button onclick="onMoveText()" class="move-text"><img src="../img/icons/change-position-btn.png"
                         alt=""></button>
-                <button onclick="onAddText()" class="add-text"><img src="../img/icons/plus-btn.png" alt=""></button>
+                <button onclick="onAddText('Testing Meme Genorateor')" class="add-text"><img
+                        src="../img/icons/plus-btn.png" alt=""></button>
                 <button onclick="onDeleteText()" class="delete-text"><img src="../img/icons/delete-btn.png"
                         alt=""></button>
             </div>
@@ -40,7 +42,7 @@
                         onclick="onFontDirection('center')"></button>
                 <button class="item-5"><img src="../img/icons/right-font.png"
                         onclick="onFontDirection('right')"></button>
-                <select class="item-6" name="font" id="font" onchange="onSetFont()">
+                <select class="item-6" name="font" id="font" onchange="setFont(this.value)">
                     <option class="impact" value="impact">Impact</option>
                     <option class="poppins" value="poppins">Poppins</option>
                     <option class="raleway" value="raleway">Raleway</option>
@@ -48,7 +50,8 @@
                     <option class="amatic" value="amatic">Amatic</option>
                 </select>
                 <button class="item-7"><img src="../img/icons/undeline-font.png" onclick="onFontUnderLine()"></button>
-                <button class="item-8"><img src="../img/icons/color-font.png" onclick="onFontColor()"></button>
+                <button class="item-8"><img src="../img/icons/color-font.png"><input class="color" type="color"
+                        oninput="onFontColor(this.value)"></button>
             </div>
             <div class="stickers">
                 <button onclick="onMoveStickers(-1)">◀︎</button>
@@ -60,8 +63,9 @@
             </div>
 
             <div class="export">
-                <button onclick="onShare()" class="share">↪︎ Share</button>
-                <button onclick="onDownload()" class="download">⇩ Download</button>
+                <button onclick="onShare()" class="share"><img src="../img/icons/share.png" alt="share">Share</button>
+                <a onclick="onDownloadCanvas(this)" class="download"><img src="../img/icons/download.png"
+                        alt="download">Download</a>
             </div>
 
 
@@ -71,6 +75,8 @@
 
     <script src="../js/services/storageServices.js"></script>
     <script src="../js/services/util.js"></script>
+    <script src="../js/services/imagesService.js"></script>
+    <script src="../js/services/canvasService.js"></script>
     <script src="../js/controller.js"></script>
 </body>
 

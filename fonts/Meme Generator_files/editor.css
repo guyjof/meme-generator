@@ -192,20 +192,6 @@ select {
 .item-6 {
   grid-column: 1/4;
 }
-.item-8 {
-  position: relative;
-}
-.color {
-  border-radius: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 5px;
-  height: 5px;
-  cursor: pointer;
-  background-color: transparent;
-  padding: 28px;
-}
 
 .stickers {
   display: flex;
@@ -234,12 +220,6 @@ select {
   gap: 15px;
   margin-bottom: 20px;
 }
-.export img {
-  height: 15px;
-  width: 15px;
-  cursor: pointer;
-  margin: 0 10px;
-}
 
 .share {
   background-color: #1e7cd3;
@@ -253,8 +233,6 @@ select {
   min-width: 170px;
 }
 .download {
-  text-align: center;
-  line-height: 60px;
   background-color: #8f44bb;
   color: #fff;
   border-radius: 10px;
