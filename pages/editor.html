@@ -9,7 +9,7 @@
     <title>Meme Generator</title>
 </head>
 
-<body>
+<body onload="init()">
     <header>
         <h1><a href="../index.html">logo</a></h1>
         <nav>
@@ -18,43 +18,50 @@
     </header>
     <main>
         <div class="img-container">
-            <img src="../img/5.jpg">
+            <canvas class="canvas"></canvas>
+            <!-- <canvas class="canvas" width="500" height="500"></canvas> -->
+            <!-- <img src="../img/5.jpg"> -->
         </div>
         <div class="editor-controls">
             <div><input class="text" type="text"></div>
             <div class="text-controls">
-                <button class="move-text">↑↓</button>
-                <button class="add-text">+</button>
-                <button class="delete-text">🗑</button>
+                <button onclick="onMoveText()" class="move-text"><img src="../img/icons/change-position-btn.png"
+                        alt=""></button>
+                <button onclick="onAddText()" class="add-text"><img src="../img/icons/plus-btn.png" alt=""></button>
+                <button onclick="onDeleteText()" class="delete-text"><img src="../img/icons/delete-btn.png"
+                        alt=""></button>
             </div>
             <div class="controls-grid">
-                <button class="item-1"><img src="../img/icons/a+.png"></button>
-                <button class="item-2"><img src="../img/icons/a-.png"></button>
-                <button class="item-3"><img src="../img/icons/left-font.png"></button>
-                <button class="item-4"><img src="../img/icons/middle-font.png"></button>
-                <button class="item-5"><img src="../img/icons/right-font.png"></button>
-                <select class="item-6" name="font" id="font">
-                    <option class="impact" value="impact">IMPACT</option>
+                <button class="item-1"><img src="../img/icons/a+.png" onclick="onFontBigger()"></button>
+                <button class="item-2"><img src="../img/icons/a-.png" onclick="onFontSmaller()"></button>
+                <button class=" item-3"><img src="../img/icons/left-font.png"
+                        onclick="onFontDirection('left')"></button>
+                <button class="item-4"><img src="../img/icons/middle-font.png"
+                        onclick="onFontDirection('center')"></button>
+                <button class="item-5"><img src="../img/icons/right-font.png"
+                        onclick="onFontDirection('right')"></button>
+                <select class="item-6" name="font" id="font" onchange="onSetFont()">
+                    <option class="impact" value="impact">Impact</option>
                     <option class="poppins" value="poppins">Poppins</option>
                     <option class="raleway" value="raleway">Raleway</option>
                     <option class="rubik" value="rubik">Rubik</option>
                     <option class="amatic" value="amatic">Amatic</option>
                 </select>
-                <button class="item-7"><img src="../img/icons/undeline-font.png"></button>
-                <button class="item-8"><img src="../img/icons/color-font.png"></button>
+                <button class="item-7"><img src="../img/icons/undeline-font.png" onclick="onFontUnderLine()"></button>
+                <button class="item-8"><img src="../img/icons/color-font.png" onclick="onFontColor()"></button>
             </div>
             <div class="stickers">
-                <button>◀︎</button>
+                <button onclick="onMoveStickers(-1)">◀︎</button>
                 <img src="../img/stickers/001.png">
                 <img src="../img/stickers/002.png">
                 <img src="../img/stickers/003.png">
                 <img src="../img/stickers/004.png">
-                <button>▶︎</button>
+                <button onclick="onMoveStickers(1)">▶︎</button>
             </div>
 
             <div class="export">
-                <button class="share">↪︎ Share</button>
-                <button class="download">⇩ Download</button>
+                <button onclick="onShare()" class="share">↪︎ Share</button>
+                <button onclick="onDownload()" class="download">⇩ Download</button>
             </div>
 
 
@@ -62,9 +69,9 @@
 
     </main>
 
-    <script src="js/services/storageServices.js"></script>
-    <script src="js/services/util.js"></script>
-    <script src="js/controller.js"></script>
+    <script src="../js/services/storageServices.js"></script>
+    <script src="../js/services/util.js"></script>
+    <script src="../js/controller.js"></script>
 </body>
 
 </html>
