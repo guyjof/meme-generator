@@ -15,26 +15,27 @@ function renderCanvas() {
     gCtx = gCanvas.getContext('2d')
 }
 
+function getCanvas() {
 
-function getText(str) {
-    console.log(str);
-    onAddText(str)
+}
+
+function getText(text) {
+    onAddText(text)
 }
 
 function onAddText(text) {
-    gCtx.lineWidth = 2;
+    gCtx.style.underLine
+    gCtx.fillRect(0, 0, gCanvas.width, gCanvas.height)
+    gCtx.lineWidth = 5;
     gCtx.font = `${gFontSize + 'px'} ${gFontFamily}`
     gCtx.strokeText(text, 10, 50);
-    gCtx.fillStyle = gFontColor
+    gCtx.fillStyle = gFontColor;
+    gCtx.fillText(text, 10, 50);
+}
 
-    gCtx.strokeWidth = 20;
-    // gCtx.strokeStyle = gFontStrokeColor
-    // gCtx.lineCap = 'round'
-    // gCtx.fill()
-    // gCtx.fillStyle = 'white'
-    // gCtx.beginPath()
-    // gCtx.rect(25, 15, 450, 50)
-    // gCtx.stroke()
+
+function onAddImage() {
+
 }
 
 function onMoveText() {
@@ -43,7 +44,7 @@ function onMoveText() {
 
 function onDeleteText() {
     var answer = confirm('Are you sure you want to delete?')
-    if (answer) return clearCanvas()
+    if (answer) gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
 }
 
 function onFontBigger() {

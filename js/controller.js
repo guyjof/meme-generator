@@ -1,5 +1,6 @@
 'use strict'
 var currImg;
+var gCanvas = getCanvas()
 
 
 function init() {
@@ -17,7 +18,7 @@ function addListeners() {
 }
 
 function addMouseListeners() {
-    // gCanvas.addEventListener('mousedown', startPos);
+    // gCanvas.addEventListener('mousedown', onAddImage);
     // gCanvas.addEventListener('mouseup', endPos);
     // gCanvas.addEventListener('mousemove', draw);
 }
