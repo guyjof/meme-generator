@@ -135,7 +135,7 @@ form {
   font-size: 21px;
   background-color: #22252c;
   color: #76787c;
-  padding: 1em;
+  padding: 0.8em;
   width: 500px;
   border-radius: 3em;
   border: none;
@@ -149,7 +149,7 @@ form {
 .keywords {
   background-color: #87898d;
   color: #fefefe;
-  padding: 0.6rem 1.5rem;
+  padding: 0.4rem 1rem;
   border-radius: 3em;
   max-width: 600px;
 }
@@ -183,3 +183,10 @@ form {
   background-image: linear-gradient(to right, #0f9bb3, #30bb72);
   border-radius: 3rem;
 }
+
+/*
+tablet 980
+
+mobile 600
+
+*/

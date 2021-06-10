@@ -159,7 +159,7 @@ function resizeCanvas() {
 function drawImg() {
     var img = new Image()
     var meme = gCurrMeme.url;
-    img.src = `${meme}`;
+    img.src = `../${meme}`;
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
         drawLines()
