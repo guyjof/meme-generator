@@ -4,11 +4,11 @@ var gCanvas;
 var gCtx;
 var gCurrImage = setImageId();
 const gFontStrokeColor = '#000'; //black
-var gFontSize = 40;
 var gFontAlign = 'center'
 var gFontFamily = 'impact';
 var gUnderLine = 'none';
 var gFontColor = '#fff'; //white
+var elCanvas = document.querySelector('canvas');
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 var gKeywords = {
     trump: 1,
@@ -100,14 +100,39 @@ var gCurrMeme = gMemes[gCurrImage - 1]
 var gMeme = {
     selectedImgId: gCurrMeme,
     selectedLineIdx: 0,
-    lines: [
-        {
-            line1: 'abc',
-            line2: 'def',
-            line3: 'efg'
+    lines: [{
+        txt: 'first line',
+        size: 40,
+        color: gFontColor,
+        align: gFontAlign,
+        pos: {
+            x: (elCanvas.width / 2) - 60,
+            y: 60
         }
+    },
+    {
+        txt: 'second line',
+        size: 40,
+        color: gFontColor,
+        align: gFontAlign,
+        pos: {
+            x: (elCanvas.width / 2) - 60,
+            y: elCanvas.height / 2 + 20
+        }
+    },
+    {
+        txt: 'third line',
+        size: 40,
+        color: gFontColor,
+        align: gFontAlign,
+        pos: {
+            x: (elCanvas.width / 2) - 60,
+            y: elCanvas.height - 20
+        }
+    }
     ]
 }
+
 function initEditor() {
     gCanvas = document.querySelector('canvas');
     gCtx = gCanvas.getContext('2d')
@@ -117,11 +142,12 @@ function initEditor() {
 
 function setImageId() {
     gCurrImage = loadFromStorage('img')
+    gCurrImage = gCurrImage.id
     return gCurrImage
 }
 
 function resizeCanvas() {
-    gCanvas.height = 550
+    console.log('resizing');
 }
 
 function drawImg() {
@@ -130,20 +156,32 @@ function drawImg() {
     img.src = `${meme}`;
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
+        drawLines()
     }
 }
 
-function getText(text) {
-    onAddText(text)
+
+function drawLines() {
+    gMeme.lines.forEach((text, idx) => {
+        var currLine = gMeme.lines[idx];
+        onAddText(currLine.txt, currLine.pos, idx)
+    })
 }
 
-function onAddText(text) {
-    // gCtx.style.underLine
+
+function getText(text) {
+    let idx = gMeme.selectedLineIdx
+    drawImg()
+    gMeme.lines[idx].txt = text
+    drawLines()
+}
+
+function onAddText(text, pos, idx) {
     gCtx.lineWidth = 5;
-    gCtx.font = `${gFontSize + 'px'} ${gFontFamily}`
-    gCtx.strokeText(text, 10, 50);
+    gCtx.font = `${gMeme.lines[idx].size + 'px'} ${gFontFamily}`
+    gCtx.strokeText(text, pos.x, pos.y);
     gCtx.fillStyle = gFontColor;
-    gCtx.fillText(text, 10, 50);
+    gCtx.fillText(text, pos.x, pos.y);
 }
 
 
@@ -153,12 +191,14 @@ function onDeleteText() {
     var answer = confirm('Are you sure you want to delete?')
     if (answer) clearCanvas();
     drawImg()
+    gMeme.lines[2].txt = ''
 }
 
 function onFontBigger() {
-    console.log(gFontSize);
-    if (gFontSize === 100) return
-    return gFontSize += 5
+    let idx = gMeme.selectedLineIdx
+    gMeme.lines[idx].size += 5
+    drawImg()
+    drawLines()
 }
 
 function onFontSmaller() {
@@ -204,6 +244,13 @@ function onDownloadCanvas(elLink) {
 }
 
 
-function onMoveText() {
-    console.log(g);
+function onChangeLine() {
+    console.log(gMeme.selectedLineIdx + 1);
+    if (gMeme.selectedLineIdx < gMeme.lines.length - 1) return gMeme.selectedLineIdx++
+    if (gMeme.selectedLineIdx === gMeme.lines.length - 1) return gMeme.selectedLineIdx = 0
+}
+
+function getCanvas() {
+    var canvas = gCanvas
+    return canvas
 }
