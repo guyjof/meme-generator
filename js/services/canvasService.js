@@ -107,9 +107,12 @@ var gMeme = {
         size: 40,
         color: gFontColor,
         align: gFontAlign,
-        center: { x: 0, y: 0 },
+        area: {
+            x: { startX: 0, endX: 50 },
+            y: { startY: 0, endY: 50 }
+        },
         pos: {
-            x: (elCanvas.width / 2) - 60,
+            x: (gCanvasW / 2) - 60,
             y: 60
         }
     },
@@ -119,7 +122,7 @@ var gMeme = {
         color: gFontColor,
         align: gFontAlign,
         pos: {
-            x: (elCanvas.width / 2) - 60,
+            x: (gCanvasW / 2) - 60,
             y: gCanvasH / 2 + 20
         }
     },
@@ -129,7 +132,7 @@ var gMeme = {
         color: gFontColor,
         align: gFontAlign,
         pos: {
-            x: (elCanvas.width / 2) - 60,
+            x: (gCanvasW / 2) - 60,
             y: gCanvasH - 20
         }
     }
@@ -169,11 +172,17 @@ function drawLines() {
         onAddText(line.txt, line.pos, idx)
         var textW = gCtx.measureText(line.txt).width + 20
         var textH = line.size * 1.5
-        var rectX = gCanvasW / 2 - textW / 2
+        if (gFontAlign === 'center') {
+            var rectX = gCanvasW / 2 - textW / 2
+        } else if (gFontAlign === 'left') {
+            var rectX = gCanvasW / 2 - 10
+        }
         var rectY = line.pos.y - line.size * 1.1
-        gCtx.lineWidth = 1
-        gCtx.strokeStyle = '#001'
-        gCtx.strokeRect(rectX, rectY, textW, textH)
+        if (idx === gMeme.selectedLineIdx && line.txt) {
+            gCtx.lineWidth = 1
+            gCtx.strokeStyle = '#001'
+            gCtx.strokeRect(rectX, rectY, textW, textH)
+        }
     })
 }
 
@@ -187,7 +196,7 @@ function getText(text) {
 
 function onAddText(text, pos, idx) {
     gCtx.lineWidth = 5;
-    gCtx.textAlign = 'center'
+    gCtx.textAlign = gFontAlign
     gCtx.font = `${gMeme.lines[idx].size + 'px'} ${gFontFamily}`
     pos.x = gCanvasW / 2
     gCtx.strokeText(text, pos.x, pos.y);
@@ -219,9 +228,21 @@ function onAddNewText() {
 
 function onDeleteText() {
     var answer = confirm('Are you sure you want to delete?')
-    if (answer) clearCanvas();
-    drawImg()
-    gMeme.lines[2].txt = ''
+    if (answer) {
+        let idx = gMeme.selectedLineIdx;
+        gMeme.lines[idx].txt = ''
+        drawImg()
+    }
+}
+
+function moveTextManual() {
+    gMeme.lines.forEach((text, idx) => {
+        var currLine = gMeme.lines[idx];
+        var textX = currLine.pos.x - 20
+        var textY = currLine.pos.y - 50
+        var rectX = currLine.txt.length * currLine.size / 1.5
+        var rectY = 70
+    })
 }
 
 function onFontBigger() {
@@ -232,13 +253,16 @@ function onFontBigger() {
 }
 
 function onFontSmaller() {
-    console.log(gFontSize);
-    if (gFontSize === 5) return
-    return gFontSize -= 5
+    let idx = gMeme.selectedLineIdx
+    gMeme.lines[idx].size -= 5
+    drawImg()
+    drawLines()
 }
 
 function onFontDirection(dir) {
-    console.log(g);
+    gFontAlign = dir
+    drawImg()
+    drawLines()
 }
 
 function setFont(font) {
@@ -262,22 +286,19 @@ function clearCanvas() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
 }
 
-function onShareCanvas() {
-    console.log(g);
-}
-
-function onDownloadCanvas(elLink) {
-    const data = gCanvas.toDataURL();
-    console.log('DATA', data);
-    elLink.href = data;
-    elLink.download = `Your-Meme-`;
-}
 
 
 function onChangeLine() {
-    console.log(gMeme.selectedLineIdx + 1);
-    if (gMeme.selectedLineIdx < gMeme.lines.length - 1) return gMeme.selectedLineIdx++
-    if (gMeme.selectedLineIdx === gMeme.lines.length - 1) return gMeme.selectedLineIdx = 0
+    if (gMeme.selectedLineIdx <= gMeme.lines.length - 1) {
+        gMeme.selectedLineIdx++
+        drawImg()
+        drawLines()
+    }
+    if (gMeme.selectedLineIdx === gMeme.lines.length) {
+        gMeme.selectedLineIdx = 0
+        drawImg()
+        drawLines()
+    }
 }
 
 function onMoveLine(dir) {
@@ -302,17 +323,19 @@ function getCanvas() {
 
 
 function getCursorPos(event, meme) {
-    meme.style.cursor = 'move'
+    // meme.style.cursor = 'move'
     // console.log(event.offsetX)
     // console.log(event.offsetY)
 }
 
-function moveTextManual() {
-    gMeme.lines.forEach((text, idx) => {
-        var currLine = gMeme.lines[idx];
-        var textX = currLine.pos.x - 20
-        var textY = currLine.pos.y - 50
-        var rectX = currLine.txt.length * currLine.size / 1.5
-        var rectY = 70
-    })
+
+function onShareCanvas() {
+    console.log(g);
+}
+
+function onDownloadCanvas(elLink) {
+    const data = gCanvas.toDataURL();
+    console.log('DATA', data);
+    elLink.href = data;
+    elLink.download = `Your-Meme`;
 }

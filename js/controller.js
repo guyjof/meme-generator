@@ -9,7 +9,7 @@ function renderGallery() {
     var elGallery = document.querySelector('.gallery');
     var strHtml = '';
     gMemes.forEach((img) => {
-        strHtml += `<div class="img-container"><img class="img-${img.id}" src="${img.url}" onclick="onSetImage(${img.id}), onGetAspect(this), onMoveToEditor()"></div>`;
+        strHtml += `<div class="img-container" style="cursor:pointer;"><img class="img-${img.id}" src="${img.url}" onclick="onSetImage(${img.id}), onGetAspect(this), onMoveToEditor()"></div>`;
     })
     elGallery.innerHTML = strHtml;
 }

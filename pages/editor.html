@@ -38,11 +38,11 @@
                 <button class="item-1"><img src="../img/icons/a+.png" onclick="onFontBigger()"></button>
                 <button class="item-2"><img src="../img/icons/a-.png" onclick="onFontSmaller()"></button>
                 <button class=" item-3"><img src="../img/icons/left-font.png"
-                        onclick="onFontDirection('left')"></button>
+                        onclick="onFontDirection('right')"></button>
                 <button class="item-4"><img src="../img/icons/middle-font.png"
                         onclick="onFontDirection('center')"></button>
                 <button class="item-5"><img src="../img/icons/right-font.png"
-                        onclick="onFontDirection('right')"></button>
+                        onclick="onFontDirection('left')"></button>
                 <select class="item-6" name="font" id="font" onchange="setFont(this.value)">
                     <option class="impact" value="impact">Impact</option>
                     <option class="poppins" value="poppins">Poppins</option>
@@ -76,7 +76,6 @@
     </main>
 
     <script src="../js/services/storageServices.js"></script>
-    <script src="../js/services/util.js"></script>
     <script src="../js/services/canvasService.js"></script>
     <script src="../js/controller.js"></script>
 </body>
