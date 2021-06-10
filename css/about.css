@@ -47,7 +47,8 @@ h1 {
 
 header nav {
   display: flex;
-  gap: 24px;
+  font-size: 1.1rem;
+  margin-inline-end: 190px;
 }
 
 a {
@@ -57,11 +58,11 @@ a {
 
 .nav-btns > a {
   text-decoration: none;
-  padding: 0.2em 1.375em;
+  padding: 0.25em 1em;
   font-family: Poppins-regular;
 }
-.nav-btns > a:focus {
-  color: #26b286;
+.nav-btns > :last-child {
+  color: #25a77e;
   background-color: #fff;
   border-radius: 3em;
 }
