@@ -163,19 +163,17 @@ function drawImg() {
     }
 }
 
-
 function drawLines() {
-    gMeme.lines.forEach((text, idx) => {
-        var currLine = gMeme.lines[idx];
-        var textX = currLine.pos.x - 20
-        var textY = currLine.pos.y - 50
-        var rectX = currLine.txt.length * currLine.size / 1.5
-        var rectY = 70
+    gMeme.lines.forEach((line, idx) => {
         gCtx.strokeStyle = '#000'
-        onAddText(currLine.txt, currLine.pos, idx)
+        onAddText(line.txt, line.pos, idx)
+        var textW = gCtx.measureText(line.txt).width + 20
+        var textH = line.size * 1.5
+        var rectX = gCanvasW / 2 - textW / 2
+        var rectY = line.pos.y - line.size * 1.1
         gCtx.lineWidth = 1
         gCtx.strokeStyle = '#001'
-        gCtx.strokeRect(textX, textY, rectX, rectY)
+        gCtx.strokeRect(rectX, rectY, textW, textH)
     })
 }
 
@@ -189,8 +187,12 @@ function getText(text) {
 
 function onAddText(text, pos, idx) {
     gCtx.lineWidth = 5;
+    gCtx.textAlign = 'center'
     gCtx.font = `${gMeme.lines[idx].size + 'px'} ${gFontFamily}`
+    pos.x = gCanvasW / 2
     gCtx.strokeText(text, pos.x, pos.y);
+    var textW = gCtx.measureText(text).width
+    var textH = gMeme.lines[idx].size
     gCtx.fillStyle = gFontColor;
     gCtx.fillText(text, pos.x, pos.y);
 }
