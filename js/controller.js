@@ -3,39 +3,25 @@
 function initGallery() {
     addListeners()
     renderGallery()
-
 }
 
 function renderGallery() {
     var elGallery = document.querySelector('.gallery');
     var strHtml = '';
     gMemes.forEach((img) => {
-        strHtml += `<div class="img-container"><img class="img-${img.id}" src="${img.url}" onclick="onSetImage(${img.id}), onMoveToEditor()"></div>`;
+        strHtml += `<div class="img-container"><img class="img-${img.id}" src="${img.url}" onclick="onSetImage(${img.id}), onGetAspect(this), onMoveToEditor()"></div>`;
     })
     elGallery.innerHTML = strHtml;
 }
 
-getAspectRatio()
-function getAspectRatio() {
-    for (var i = 0; i < gMemes.length; i++) {
-        // var ogImg = document.querySelector('.img-1');
-        // console.log(ogImg);
-        // var aspect = ogImg.naturalHeight / ogImg.naturalWidth
-        // console.log(aspect);
-        gMemes[i].aspect = 'size'
-    }
-}
 
-function onSetImage(id, aspect) {
-    var img = {
-        id,
-        aspect
-    }
+function onSetImage(id) {
+    var img = id
     saveToStorage('img', img)
 }
 
 
-function onMoveToEditor() {
+function onMoveToEditor(img) {
     window.location.replace("pages/editor.html");
 }
 
@@ -55,3 +41,15 @@ function addTouchListeners() {
     // gCanvas.addEventListener('touuchend', endPos);
     // gCanvas.addEventListener('touchmove', draw);
 }
+
+
+
+function onGetAspect(e) {
+    const canvasW = 540;
+    var imgW = e.naturalWidth;
+    var imgH = e.naturalHeight;
+    var canvasH = (imgH * canvasW) / imgW
+    saveToStorage('canvasH', canvasH)
+
+}
+

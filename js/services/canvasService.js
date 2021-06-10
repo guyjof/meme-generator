@@ -2,6 +2,8 @@
 const g = 'YASSSS' // yasss
 var gCanvas;
 var gCtx;
+var gCanvasW = 540;
+var gCanvasH = loadFromStorage('canvasH');
 var gCurrImage = setImageId();
 const gFontStrokeColor = '#000'; //black
 var gFontAlign = 'center'
@@ -117,7 +119,7 @@ var gMeme = {
         align: gFontAlign,
         pos: {
             x: (elCanvas.width / 2) - 60,
-            y: elCanvas.height / 2 + 20
+            y: gCanvasH / 2 + 20
         }
     },
     {
@@ -127,7 +129,7 @@ var gMeme = {
         align: gFontAlign,
         pos: {
             x: (elCanvas.width / 2) - 60,
-            y: elCanvas.height - 20
+            y: gCanvasH - 20
         }
     }
     ]
@@ -142,12 +144,12 @@ function initEditor() {
 
 function setImageId() {
     gCurrImage = loadFromStorage('img')
-    gCurrImage = gCurrImage.id
+    gCurrImage = gCurrImage
     return gCurrImage
 }
 
 function resizeCanvas() {
-    console.log('resizing');
+    gCanvas.height = loadFromStorage('canvasH')
 }
 
 function drawImg() {
@@ -184,8 +186,14 @@ function onAddText(text, pos, idx) {
     gCtx.fillText(text, pos.x, pos.y);
 }
 
-
-
+function onAddNewText(text, pos, idx) {
+    var text = 'new line'
+    gCtx.lineWidth = 5;
+    gCtx.font = 50, gFontFamily
+    gCtx.strokeText(text, 100, 100);
+    gCtx.fillStyle = gFontColor;
+    gCtx.fillText(text, 100, 100);
+}
 
 function onDeleteText() {
     var answer = confirm('Are you sure you want to delete?')
@@ -263,7 +271,6 @@ function onMoveLine(dir) {
         drawImg()
         drawLines()
     }
-
 }
 
 function getCanvas() {
