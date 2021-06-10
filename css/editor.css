@@ -97,16 +97,13 @@ main {
 }
 
 .img-container {
-  width: 550px;
-  height: 550px;
-  max-height: 550px;
-  border: 6px solid #34373e;
-  border-radius: 25px;
   overflow: hidden;
 }
 
 canvas {
   background: #fff;
+  border: 6px solid #34373e;
+  border-radius: 25px;
 }
 
 .editor-controls {

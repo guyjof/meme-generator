@@ -1,15 +1,27 @@
 'use strict'
-var currImg;
-var gCanvas = getCanvas()
 
-
-function init() {
+function initGallery() {
     addListeners()
-    renderCanvas()
+    renderGallery()
+
 }
 
-function renderImg() {
-    console.log(g);
+function renderGallery() {
+    var elGallery = document.querySelector('.gallery');
+    var strHtml = '';
+    gMemes.forEach((img) => {
+        strHtml += `<div class="img-container"><img src="${img.url}" onclick="onSetImage(${img.id}), onMoveToEditor(${img.id})"></div>`;
+    })
+    elGallery.innerHTML = strHtml;
+}
+
+function onSetImage(id) {
+    saveToStorage('img', id)
+}
+
+
+function onMoveToEditor(id) {
+    window.location.replace("pages/editor.html");
 }
 
 function addListeners() {
@@ -28,4 +40,3 @@ function addTouchListeners() {
     // gCanvas.addEventListener('touuchend', endPos);
     // gCanvas.addEventListener('touchmove', draw);
 }
-
