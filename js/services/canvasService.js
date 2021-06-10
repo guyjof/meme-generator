@@ -107,6 +107,7 @@ var gMeme = {
         size: 40,
         color: gFontColor,
         align: gFontAlign,
+        center: { x: 0, y: 0 },
         pos: {
             x: (elCanvas.width / 2) - 60,
             y: 60
@@ -166,7 +167,15 @@ function drawImg() {
 function drawLines() {
     gMeme.lines.forEach((text, idx) => {
         var currLine = gMeme.lines[idx];
+        var textX = currLine.pos.x - 20
+        var textY = currLine.pos.y - 50
+        var rectX = currLine.txt.length * currLine.size / 1.5
+        var rectY = 70
+        gCtx.strokeStyle = '#000'
         onAddText(currLine.txt, currLine.pos, idx)
+        gCtx.lineWidth = 1
+        gCtx.strokeStyle = '#001'
+        gCtx.strokeRect(textX, textY, rectX, rectY)
     })
 }
 
@@ -186,13 +195,24 @@ function onAddText(text, pos, idx) {
     gCtx.fillText(text, pos.x, pos.y);
 }
 
-function onAddNewText(text, pos, idx) {
+function onAddNewText() {
     var text = 'new line'
     gCtx.lineWidth = 5;
     gCtx.font = 50, gFontFamily
-    gCtx.strokeText(text, 100, 100);
+    gCtx.strokeText(text, gCanvasW / 2 - 60, gCanvasH / 2);
     gCtx.fillStyle = gFontColor;
-    gCtx.fillText(text, 100, 100);
+    gCtx.fillText(text, gCanvasW / 2 - 60, gCanvasH / 2);
+    gMeme.lines.push({
+        txt: text,
+        size: 40,
+        color: gFontColor,
+        align: gFontAlign,
+        center: { x: 0, y: 0 },
+        pos: {
+            x: (gCanvasW / 2 - 60),
+            y: gCanvasH / 2
+        }
+    })
 }
 
 function onDeleteText() {
@@ -276,4 +296,21 @@ function onMoveLine(dir) {
 function getCanvas() {
     var canvas = gCanvas
     return canvas
+}
+
+
+function getCursorPos(event, meme) {
+    meme.style.cursor = 'move'
+    // console.log(event.offsetX)
+    // console.log(event.offsetY)
+}
+
+function moveTextManual() {
+    gMeme.lines.forEach((text, idx) => {
+        var currLine = gMeme.lines[idx];
+        var textX = currLine.pos.x - 20
+        var textY = currLine.pos.y - 50
+        var rectX = currLine.txt.length * currLine.size / 1.5
+        var rectY = 70
+    })
 }

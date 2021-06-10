@@ -17,7 +17,7 @@
         </nav>
     </header>
     <main>
-        <div class="img-container">
+        <div class="img-container" onmousemove="getCursorPos(event, this)">
             <canvas class="canvas" width="540"></canvas>
         </div>
         <div class="editor-controls">
@@ -50,7 +50,8 @@
                     <option class="rubik" value="rubik">Rubik</option>
                     <option class="amatic" value="amatic">Amatic</option>
                 </select>
-                <button class="item-7"><img src="../img/icons/undeline-font.png" onclick="onFontUnderLine()"></button>
+                <button class="item-7"><img src="../img/icons/undeline-font.png"
+                        style="box-shadow: 0px 3px 0px 0px #000" onclick="onFontUnderLine()"></button>
                 <button class="item-8"><img src="../img/icons/color-font.png"><input class="color" type="color"
                         oninput="onFontColor(this.value)"></button>
             </div>
