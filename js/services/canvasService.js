@@ -250,6 +250,22 @@ function onChangeLine() {
     if (gMeme.selectedLineIdx === gMeme.lines.length - 1) return gMeme.selectedLineIdx = 0
 }
 
+function onMoveLine(dir) {
+    if (dir === 'up') {
+        if (!gMeme.lines[gMeme.selectedLineIdx].pos.y) return
+        gMeme.lines[gMeme.selectedLineIdx].pos.y -= 5
+        drawImg()
+        drawLines()
+    }
+    if (dir === 'down') {
+        if (!gMeme.lines[gMeme.selectedLineIdx].pos.y) return
+        gMeme.lines[gMeme.selectedLineIdx].pos.y += 5
+        drawImg()
+        drawLines()
+    }
+
+}
+
 function getCanvas() {
     var canvas = gCanvas
     return canvas
