@@ -44,7 +44,7 @@ h3 {
 body {
   background-color: #22252c;
   color: #fff;
-  height: 100vh;
+  /* height: 100vh; */
   overflow: hidden;
 }
 a {
@@ -183,8 +183,8 @@ form {
 .grid-container {
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 250px));
-  grid-auto-rows: 250px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
+  grid-auto-rows: 200px;
   gap: 20px;
   justify-content: center;
 }
