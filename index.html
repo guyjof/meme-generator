@@ -11,28 +11,29 @@
 </head>
 
 <body onload="initGallery()">
-    <header>
+    <header class="flex center">
         <h1><a href="index.html">logo</a></h1>
         <nav>
             <div class="nav-btns"><a href="index.html">Gallery</a><a href="pages/about.html">About</a></div>
         </nav>
     </header>
     <main>
-        <nav class="gallery-controls">
+        <nav class="gallery-controls flex ">
             <form action="search">
                 <input class="search" type="search" name="search" placeholder="Search">
                 <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
             </form>
-            <div class="keywords">
-                <a href="#" style="font-size: 30px;">Funny</a>
-                <a href="#" style="font-size: 22px;">Animal</a>
-                <a href="#" style="font-size: 14px;">Men</a>
-                <a href="#" style="font-size: 19px;">Women</a>
-                <a href="#" style="font-size: 10px;">Comic</a>
-                <a href="#" style="font-size: 28px;">Smile</a>
+            <div class=" keywords-controls flex">
+                <div class="keywords">
+                    <a href="#">Funny</a>
+                    <a href="#">Animal</a>
+                    <a href="#">Men</a>
+                    <a href="#">Women</a>
+                    <a href="#">Comic</a>
+                    <a href="#">Smile</a>
+                </div>
+                <a href="#" class="more">More</a>
             </div>
-
-            <a href="#" class="more">More</a>
         </nav>
 
         <div class="gallery grid-container">
