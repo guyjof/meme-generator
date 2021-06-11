@@ -12,12 +12,25 @@
 
 <body onload="initGallery()">
     <header class="flex center">
-        <h1><a href="index.html">logo</a></h1>
+        <div class="logo">
+            <h1><a href="index.html">logo</a></h1>
+        </div>
         <nav>
             <div class="nav-btns"><a href="index.html">Gallery</a><a href="pages/about.html">About</a></div>
         </nav>
+        <div class="menu-btn flex center">
+            <div class="menu-btn-burger">
+
+            </div>
+        </div>
     </header>
     <main>
+        <aside class="menu flex">
+            <ul>
+                <li><a href="index.html">Gallery</a></li>
+                <li><a href="pages/about.html">About</a></li>
+            </ul>
+        </aside>
         <nav class="gallery-controls flex ">
             <form action="search">
                 <input class="search" type="search" name="search" placeholder="Search">
