@@ -36,7 +36,7 @@
             </ul>
         </aside>
 
-        <div class="img-container" onmousemove="getCursorPos(event, this)">
+        <div class="img-container" onmousemove="getCursorPos(event), checkIfLineClicked()">
             <canvas class="canvas" width="540"></canvas>
         </div>
         <div class="editor-controls">
@@ -84,9 +84,11 @@
             </div>
 
             <div class="export">
-                <button onclick="onShare()" class="share"><img src="../img/icons/share.png" alt="share">Share</button>
-                <a onclick="onDownloadCanvas(this)" class="download"><img src="../img/icons/download.png"
-                        alt="download">Download</a>
+                <form>
+                    <button type="submit" class="share"><img src="../img/icons/share.png" alt="share">Share</button>
+                    <a onclick="onDownloadCanvas(this)" class="download"><img src="../img/icons/download.png"
+                            alt="download">Download</a>
+                </form>
             </div>
 
 

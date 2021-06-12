@@ -50,6 +50,9 @@ h1 {
 nav {
   display: none;
 }
+button {
+  cursor: pointer;
+}
 main {
   padding: 30px 12px;
   background-color: #383b42;
@@ -350,7 +353,7 @@ select {
   border: none;
 }
 
-.export {
+form {
   display: flex;
   justify-content: space-between;
   gap: 15px;
