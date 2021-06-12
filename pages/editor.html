@@ -35,8 +35,9 @@
                 <li><a href="about.html">About</a></li>
             </ul>
         </aside>
-
-        <div class="img-container" onmousemove="getCursorPos(event), checkIfLineClicked()">
+        <!-- onmouseover="getCursorPos(event.offsetX,event.offsetY)"
+            onmousedown="checkIfLineClicked(), moveTextManual()" -->
+        <div class="img-container">
             <canvas class="canvas" width="540"></canvas>
         </div>
         <div class="editor-controls">
@@ -45,8 +46,10 @@
                 </div>
             </form>
             <div class="text-controls">
-                <button onclick="onMoveLine(this.value)" value="up">up</button>
-                <button onclick="onMoveLine(this.value)" value="down">Down</button>
+                <button onclick="onMoveLine(this.value)" value="up"><img class="arrow-up" src="../img/icons/arrow.png"
+                        alt="Move up"></button>
+                <button onclick="onMoveLine(this.value)" value="down"><img class="arrow-down"
+                        src="../img/icons/arrow.png" alt="Move down"></button>
                 <button onclick="onChangeLine()" class="move-text"><img src="../img/icons/change-position-btn.png"
                         alt="change line"></button>
                 <button onclick="onAddNewText()" class="add-text"><img src="../img/icons/plus-btn.png" alt=""></button>
@@ -54,20 +57,21 @@
                         alt=""></button>
             </div>
             <div class="controls-grid">
-                <button class="item-1"><img src="../img/icons/a+.png" onclick="onFontBigger()"></button>
-                <button class="item-2"><img src="../img/icons/a-.png" onclick="onFontSmaller()"></button>
+                <button class="item-1"><img src="../img/icons/a+.png" onclick="onFontSize(5)"></button>
+                <button class="item-2"><img src="../img/icons/a-.png" onclick="onFontSize(-5)"></button>
                 <button class=" item-3"><img src="../img/icons/left-font.png"
                         onclick="onFontDirection('right')"></button>
                 <button class="item-4"><img src="../img/icons/middle-font.png"
                         onclick="onFontDirection('center')"></button>
                 <button class="item-5"><img src="../img/icons/right-font.png"
                         onclick="onFontDirection('left')"></button>
+
                 <select class="item-6" name="font" id="font" onchange="setFont(this.value)">
-                    <option class="impact" value="impact">Impact</option>
-                    <option class="poppins" value="poppins">Poppins</option>
-                    <option class="raleway" value="raleway">Raleway</option>
-                    <option class="rubik" value="rubik">Rubik</option>
-                    <option class="amatic" value="amatic">Amatic</option>
+                    <option value="impact">Impact</option>
+                    <option value="arial">Arial</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Brush Script MT">Brush Script MT</option>
+                    <option value="Garamond">Garamond</option>
                 </select>
                 <button class="item-7"><img src="../img/icons/undeline-font.png"
                         style="box-shadow: 0px 3px 0px 0px #000" onclick="onFontUnderLine()"></button>
@@ -84,11 +88,9 @@
             </div>
 
             <div class="export">
-                <form>
-                    <button type="submit" class="share"><img src="../img/icons/share.png" alt="share">Share</button>
-                    <a onclick="onDownloadCanvas(this)" class="download"><img src="../img/icons/download.png"
-                            alt="download">Download</a>
-                </form>
+                <button class="share" onclick="onShare()"><img src="../img/icons/share.png" alt="share">Share</button>
+                <a onclick="onDownloadCanvas(this)" class="download"><img src="../img/icons/download.png"
+                        alt="download">Download</a>
             </div>
 
 
@@ -97,6 +99,7 @@
     </main>
 
     <script src="../js/services/storageServices.js"></script>
+    <!-- <script src="../js/services/line-service.js.js"></script> -->
     <script src="../js/services/canvasService.js"></script>
     <script src="../js/controller.js"></script>
 </body>

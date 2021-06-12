@@ -73,11 +73,13 @@ main {
   background: #fff;
   border-radius: 50%;
   z-index: 2;
+  position: relative;
 }
 .menu-btn.clicked {
   background-image: linear-gradient(to right, #0f9bb3, #30bb72);
 }
 .menu-btn-burger {
+  position: absolute;
   width: 30px;
   height: 5px;
   background: #2ab57f;
@@ -277,6 +279,12 @@ input {
   height: 30px;
   object-fit: contain;
 }
+.arrow-up {
+  transform: rotate(-90deg);
+}
+.arrow-down {
+  transform: rotate(90deg);
+}
 .move-text {
   background-color: #47b4d1;
 }
@@ -353,7 +361,7 @@ select {
   border: none;
 }
 
-form {
+.export {
   display: flex;
   justify-content: space-between;
   gap: 15px;

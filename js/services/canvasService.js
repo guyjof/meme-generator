@@ -1,16 +1,15 @@
 'use strict'
-const g = 'YASSSS' // yasss
 var gCanvas;
 var gCtx;
 var gCanvasW = 540;
 var gCanvasH = loadFromStorage('canvasH');
+var gLine;
+var gStartPos;
 var gCurrImage = setImageId();
-const gFontStrokeColor = '#000'; //black
+var gFontStrokeColor = '#000'; //black
 var gFontAlign = 'center'
 var gFontFamily = 'impact';
-var gUnderLine = 'none';
 var gFontColor = '#fff'; //white
-var elCanvas = document.querySelector('canvas');
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 var gKeywords = {
     trump: 1,
@@ -107,6 +106,7 @@ var gMeme = {
         size: 40,
         color: gFontColor,
         align: gFontAlign,
+        isDrag: false,
         pos: {
             x: (gCanvasW / 2) - 60,
             y: 60
@@ -139,28 +139,26 @@ function initEditor() {
     gCanvas = document.querySelector('canvas');
     gCtx = gCanvas.getContext('2d')
     resizeCanvas()
-    addListeners()
     drawImg()
+    // addListeners()
 }
-
 
 function addListeners() {
     addMouseListeners()
-    addTouchListeners()
+    // addTouchListeners()
 }
 
 function addMouseListeners() {
-    // gCanvas.addEventListener('mousedown', startPos);
-    // gCanvas.addEventListener('mouseup', endPos);
-    // gCanvas.addEventListener('mousemove', moveText);
+    //     gCanvas.addEventListener('mousemove', onMove);
+    //     gCanvas.addEventListener('mousedown', onDown);
+    //     gCanvas.addEventListener('mouseup', onUp);
 }
 
 function addTouchListeners() {
-    // gCanvas.addEventListener('touchstart', startPos);
-    // gCanvas.addEventListener('touuchend', endPos);
-    // gCanvas.addEventListener('touchmove', moveText);
+    gCanvas.addEventListener('touchmove', onMove);
+    gCanvas.addEventListener('touchstart', onDown);
+    gCanvas.addEventListener('touuchend', onUp);
 }
-
 
 function setImageId() {
     gCurrImage = loadFromStorage('img')
@@ -182,10 +180,17 @@ function drawImg() {
     }
 }
 
+function getText(text) {
+    let idx = gMeme.selectedLineIdx
+    drawImg()
+    gMeme.lines[idx].txt = text
+    drawLines()
+}
+
 function drawLines() {
     gMeme.lines.forEach((line, idx) => {
         gCtx.strokeStyle = '#000'
-        onAddText(line.txt, line.pos, idx)
+        onDrawText(line.txt, line.pos, idx)
         var textW = gCtx.measureText(line.txt).width + 20
         line.width = textW
         var textH = line.size * 1.5
@@ -203,24 +208,12 @@ function drawLines() {
     })
 }
 
-
-function getText(text) {
-    let idx = gMeme.selectedLineIdx
-    drawImg()
-    gMeme.lines[idx].txt = text
-    drawLines()
-}
-
-
-
-function onAddText(text, pos, idx) {
+function onDrawText(text, pos, idx) {
     gCtx.lineWidth = 5;
     gCtx.textAlign = gFontAlign
     gCtx.font = `${gMeme.lines[idx].size + 'px'} ${gFontFamily}`
     pos.x = gCanvasW / 2
     gCtx.strokeText(text, pos.x, pos.y);
-    var textW = gCtx.measureText(text).width
-    var textH = gMeme.lines[idx].size
     gCtx.fillStyle = gFontColor;
     gCtx.fillText(text, pos.x, pos.y);
 }
@@ -255,26 +248,9 @@ function onDeleteText() {
     }
 }
 
-function moveTextManual() {
-    gMeme.lines.forEach((text, idx) => {
-        var currLine = gMeme.lines[idx];
-        var textX = currLine.pos.x - 20
-        var textY = currLine.pos.y - 50
-        var rectX = currLine.txt.length * currLine.size / 1.5
-        var rectY = 70
-    })
-}
-
-function onFontBigger() {
+function onFontSize(diff) {
     let idx = gMeme.selectedLineIdx
-    gMeme.lines[idx].size += 5
-    drawImg()
-    drawLines()
-}
-
-function onFontSmaller() {
-    let idx = gMeme.selectedLineIdx
-    gMeme.lines[idx].size -= 5
+    gMeme.lines[idx].size += diff
     drawImg()
     drawLines()
 }
@@ -289,24 +265,13 @@ function setFont(font) {
     gFontFamily = font
 }
 
-function onFontUnderLine() {
-    console.log(g);
-}
-
 function onFontColor(color) {
     gFontColor = color
 }
 
-function onMoveStickers(diff) {
-    console.log(g);
-}
-
-
 function clearCanvas() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
 }
-
-
 
 function onChangeLine() {
     if (gMeme.selectedLineIdx <= gMeme.lines.length - 1) {
@@ -338,35 +303,7 @@ function onMoveLine(dir) {
     }
 }
 
-function getCanvas() {
-    var canvas = gCanvas
-    return canvas
-}
-
-
-function getCursorPos(event) {
-    var x = event.offsetX
-    var y = event.offsetY
-    return { x, y }
-}
-
-function checkIfLineClicked() {
-    var pos = getCursorPos(event)
-    gMeme.lines.forEach((line) => {
-        gCanvas.style.cursor = 'grab'
-        if (pos.x > gCanvasW / 2 - line.width / 2 + 25 &&
-            pos.x < gCanvasW / 2 + line.width / 2 - 25 &&
-            pos.y > line.pos.y - line.size &&
-            pos.y < line.pos.y + line.size / 2) {
-            console.log('yasss');
-        }
-    })
-
-}
-
-
-function onShare(elForm, onSuccess) {
-    console.log(g);
+function onShare() {
 }
 
 function onDownloadCanvas(elLink) {
@@ -376,6 +313,59 @@ function onDownloadCanvas(elLink) {
     elLink.download = `Your-Meme`;
 }
 
+// function onFontUnderLine() {
+//     console.log(g);
+// }
+// function onMoveStickers(diff) {
+//     console.log(g);
+// }
+// function moveTextManual(line, x, y) {
+//     var line = line
+//     console.log(line);
+//     line.pos.x = x
+//     line.pos.y = y
+//     drawImg()
+//     drawLines()
+// }
+// function getLine() {
+//     return gLine = gMeme.lines[gMeme.selectedLineIdx]
+// }
 
+// function isLineClicked(clickedPos) {
+//     // var pos = getCursorPos(event)
+//     const { pos } = gLine.pos
+//     gMeme.lines.forEach((line) => {
 
+//         if (pos.x > gCanvasW / 2 - line.width / 2 + 25 &&
+//             pos.x < gCanvasW / 2 + line.width / 2 - 25 &&
+//             pos.y > line.pos.y - line.size &&
+//             pos.y < line.pos.y + line.size / 2) {
+//             return true
+//             //     gCanvas.style.cursor = 'grab'
+//             //     moveTextManual(line, pos.x, pos.y)
+//         }
+//         return false
+//     })
 
+// }
+// console.log(isLineClicked());
+
+// function getCursorPos(x, y) {
+
+//     // return { x, y }
+// }
+
+// function onDown() {
+//     const pos = getEvPos(ev)
+//     if (!isLineClicked(pos)) return
+//     setLineDrag(true)
+//     gStartPos = pos
+//     document.body.style.cursor = 'grabbing'
+// }
+
+// function onMove() {
+
+// }
+// function onUp() {
+
+// }
