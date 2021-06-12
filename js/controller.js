@@ -1,7 +1,5 @@
 'use strict'
-
 function initGallery() {
-    addListeners()
     renderGallery()
 }
 
@@ -21,23 +19,6 @@ function onSetImage(id) {
 
 function onMoveToEditor(img) {
     window.location.replace("pages/editor.html");
-}
-
-function addListeners() {
-    addMouseListeners()
-    addTouchListeners()
-}
-
-function addMouseListeners() {
-    // gCanvas.addEventListener('mousedown', onAddImage);
-    // gCanvas.addEventListener('mouseup', endPos);
-    // gCanvas.addEventListener('mousemove', draw);
-}
-
-function addTouchListeners() {
-    // gCanvas.addEventListener('touchstart', startPos);
-    // gCanvas.addEventListener('touuchend', endPos);
-    // gCanvas.addEventListener('touchmove', draw);
 }
 
 function onGetAspect(e) {

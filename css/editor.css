@@ -1,13 +1,3 @@
-/* 
-body background color: #22252c
-main section background color: #383b42
-
-main gradient: background-image: linear-gradient(to right, #0f9bb3, #30bb72);
-
-nav accsent color: #fff
-
-border: #34373e
-*/
 @font-face {
   font-family: Poppins-Light;
   src: url(../fonts/Poppins/Poppins-Light.ttf);
@@ -35,55 +25,193 @@ h3 {
 
 body {
   background-color: #22252c;
-  padding: 15px 7px;
   color: #fff;
-  min-width: 600px;
-  height: 100vh;
 }
-
-header {
-  padding: 0.75em 80px;
-  background-image: linear-gradient(to right, #0f9bb3, #30bb72);
-  border-radius: 3em;
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: space-between;
-  margin-block-end: 16px;
-}
-h1 {
-  font-size: 22px;
-  text-transform: uppercase;
-}
-
-header nav {
-  display: flex;
-  gap: 24px;
-}
-
 a {
   text-decoration: none;
   color: inherit;
+}
+
+/**********/
+/* header */
+/**********/
+
+header {
+  background-image: linear-gradient(to right, #0f9bb3, #30bb72);
+  justify-content: space-between;
+  padding: 1em 1.2em;
+}
+
+h1 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+nav {
+  display: none;
+}
+main {
+  padding: 30px 12px;
+  background-color: #383b42;
+  position: relative;
+  margin: auto;
+  max-width: 570px;
+}
+/********/
+/* Menu */
+/********/
+
+.menu-btn {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  justify-content: center;
+  background: #fff;
+  border-radius: 50%;
+  z-index: 2;
+}
+.menu-btn.clicked {
+  background-image: linear-gradient(to right, #0f9bb3, #30bb72);
+}
+.menu-btn-burger {
+  width: 30px;
+  height: 5px;
+  background: #2ab57f;
+  border-radius: 5px;
+  transition: all 0.5s ease-in-out;
+}
+.menu-btn-burger::before,
+.menu-btn-burger::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 5px;
+  background: #2ab57f;
+  border-radius: 5px;
+  transition: all 0.5s ease-in-out;
+}
+
+.menu-btn-burger::before {
+  transform: translateY(-10px);
+}
+.menu-btn-burger::after {
+  transform: translateY(10px);
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  margin-top: 120px;
+}
+li {
+  padding: 0;
+  margin: 0;
+  width: 90vh;
+  list-style: none;
+  font-size: 2rem;
+  padding: 0.5em 1em;
+  border-top: 1px solid #2ab57f;
   cursor: pointer;
 }
 
-button {
-  cursor: pointer;
+li:hover,
+li:active,
+li:focus {
+  background: #30bb72;
+  color: #fff;
 }
 
-img {
-  width: 100%;
+.menu {
+  display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  height: 100vh;
+  width: 90%;
+  background: #fff;
+  color: #2ab57f;
+  justify-content: flerx-start;
+  z-index: 1;
+  transition: transform 0.7s ease;
+}
+.menu-btn {
+  display: flex;
+}
+.menu.open {
+  transform: translateX(0);
+  transition: transform 1s ease;
 }
 
-.nav-btns > a {
-  text-decoration: none;
-  padding: 0.2em 1.375em;
-  font-family: Poppins-regular;
+/*************/
+/* Animation */
+/*************/
+.menu-btn.clicked .menu-btn-burger {
+  transform: translateX(-42px);
+  background: transparent;
 }
-.nav-btns > a:focus {
-  color: #26b286;
-  background-color: #fff;
-  border-radius: 3em;
+.menu-btn.clicked .menu-btn-burger::before {
+  transform: rotate(45deg) translate(30px, -30px);
+  background: #fff;
+}
+.menu-btn.clicked .menu-btn-burger::after {
+  transform: rotate(-45deg) translate(30px, 30px);
+  background: #fff;
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    padding: 15px 7px;
+  }
+  header {
+    background-image: linear-gradient(to right, #0f9bb3, #30bb72);
+    border-radius: 3em;
+    justify-content: space-between;
+    margin-block-end: 0.8rem;
+    padding: 0.75em 0rem 0.75em 4rem;
+  }
+  main {
+    max-width: unset;
+  }
+  h1 {
+    font-size: 1.1rem;
+  }
+  nav {
+    display: block;
+  }
+  .menu {
+    display: none;
+  }
+  .menu-btn {
+    display: none;
+  }
+
+  header nav {
+    font-size: 1.1rem;
+    margin-inline-end: 2.5rem;
+  }
+  .nav-btns {
+    display: flex;
+  }
+  .nav-btns > div {
+    padding: 0.25em 1em;
+    font-family: Poppins-regular;
+  }
+
+  .nav-btns > .gallery-btn {
+    color: #25a77e;
+    background-color: #fff;
+    border-radius: 3em;
+    margin-inline-end: 1rem;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  header nav {
+    font-size: 1.1rem;
+    margin-inline-end: 190px;
+  }
 }
 
 main {
@@ -102,7 +230,7 @@ main {
 
 canvas {
   background: #fff;
-  border: 6px solid #34373e;
+  border: 6px solid #2b2d33;
   border-radius: 25px;
 }
 
@@ -111,7 +239,7 @@ canvas {
   height: 550px;
   max-height: 550px;
   padding: 1em;
-  border: 6px solid #34373e;
+  border: 6px solid #2b2d33;
   border-radius: 25px;
   gap: 18px;
   display: flex;
@@ -258,4 +386,16 @@ select {
   max-width: 50%;
   width: 220px;
   min-width: 170px;
+}
+
+/**********/
+/* helpers */
+/***********/
+
+.flex {
+  display: flex;
+}
+.center {
+  align-items: center;
+  align-content: center;
 }

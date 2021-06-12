@@ -143,8 +143,28 @@ function initEditor() {
     gCanvas = document.querySelector('canvas');
     gCtx = gCanvas.getContext('2d')
     resizeCanvas()
+    addListeners()
     drawImg()
 }
+
+
+function addListeners() {
+    addMouseListeners()
+    addTouchListeners()
+}
+
+function addMouseListeners() {
+    gCanvas.addEventListener('mousedown', onAddImage);
+    gCanvas.addEventListener('mouseup', endPos);
+    gCanvas.addEventListener('mousemove', draw);
+}
+
+function addTouchListeners() {
+    gCanvas.addEventListener('touchstart', startPos);
+    gCanvas.addEventListener('touuchend', endPos);
+    gCanvas.addEventListener('touchmove', draw);
+}
+
 
 function setImageId() {
     gCurrImage = loadFromStorage('img')
