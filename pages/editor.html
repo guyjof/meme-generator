@@ -50,21 +50,18 @@
         <!-- onmouseover="getCursorPos(event.offsetX,event.offsetY)"
             onmousedown="checkIfLineClicked(), moveTextManual()" -->
         <div class="img-container">
-            <canvas class="canvas" width="540"></canvas>
+            <canvas class="canvas" width="540" onmousedown="onDown(event)" onmousemove="onMove(event)"
+                onmouseup="onUp(event)"></canvas>
         </div>
         <div class="editor-controls">
             <form>
-                <div><input class="text" type="text" placeholder="CAN'T GET FIRED" oninput=" getText(this.value)">
+                <div><input class="text" type="text" oninput=" getText(this.value)">
                 </div>
             </form>
             <div class="text-controls">
-                <button onclick="onMoveLine(this.value)" value="up"><img class="arrow-up" src="../img/icons/arrow.png"
-                        alt="Move up"></button>
-                <button onclick="onMoveLine(this.value)" value="down"><img class="arrow-down"
-                        src="../img/icons/arrow.png" alt="Move down"></button>
                 <button onclick="onChangeLine()" class="move-text"><img src="../img/icons/change-position-btn.png"
                         alt="change line"></button>
-                <button onclick="onAddNewText()" class="add-text"><img src="../img/icons/plus-btn.png" alt=""></button>
+                <button onclick="onAddNewLine()" class="add-text"><img src="../img/icons/plus-btn.png" alt=""></button>
                 <button onclick="onDeleteText()" class="delete-text"><img src="../img/icons/delete-btn.png"
                         alt=""></button>
             </div>

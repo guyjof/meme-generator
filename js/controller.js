@@ -27,9 +27,7 @@ function onGetAspect(e) {
     var imgH = e.naturalHeight;
     var canvasH = (imgH * canvasW) / imgW
     saveToStorage('canvasH', canvasH)
-
 }
-
 
 const menuBtn = document.querySelector('.menu-btn');
 const menu = document.querySelector('.menu');

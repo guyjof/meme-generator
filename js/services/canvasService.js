@@ -3,13 +3,8 @@ var gCanvas;
 var gCtx;
 var gCanvasW = 540;
 var gCanvasH = loadFromStorage('canvasH');
-var gLine;
 var gStartPos;
 var gCurrImage = setImageId();
-var gFontStrokeColor = '#000'; //black
-var gFontAlign = 'center'
-var gFontFamily = 'impact';
-var gFontColor = '#fff'; //white
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 var gKeywords = {
     trump: 1,
@@ -104,59 +99,46 @@ var gMeme = {
     lines: [{
         txt: 'first line',
         size: 40,
-        color: gFontColor,
-        align: gFontAlign,
+        color: '#fff',
+        align: 'center',
+        font: 'impact',
+        isUnderline: false,
+        isActive: false,
         isDrag: false,
         pos: {
-            x: (gCanvasW / 2) - 60,
+            x: gCanvasW / 2,
             y: 60
         }
     },
     {
         txt: 'second line',
         size: 40,
-        color: gFontColor,
-        align: gFontAlign,
+        color: '#fff',
+        align: 'center',
+        font: 'impact',
+        isUnderline: false,
+        isActive: false,
+        isDrag: false,
         pos: {
-            x: (gCanvasW / 2) - 60,
-            y: gCanvasH / 2 + 20
-        }
-    },
-    {
-        txt: 'third line',
-        size: 40,
-        color: gFontColor,
-        align: gFontAlign,
-        pos: {
-            x: (gCanvasW / 2) - 60,
+            x: gCanvasW / 2,
             y: gCanvasH - 20
         }
     }
     ]
 }
+var gLine = gMeme.lines[gMeme.selectedLineIdx]
 
 function initEditor() {
     gCanvas = document.querySelector('canvas');
     gCtx = gCanvas.getContext('2d')
     resizeCanvas()
     drawImg()
-    // addListeners()
-}
-
-function addListeners() {
-    addMouseListeners()
-    // addTouchListeners()
-}
-
-function addMouseListeners() {
-    //     gCanvas.addEventListener('mousemove', onMove);
-    //     gCanvas.addEventListener('mousedown', onDown);
-    //     gCanvas.addEventListener('mouseup', onUp);
+    addTouchListeners()
 }
 
 function addTouchListeners() {
-    gCanvas.addEventListener('touchmove', onMove);
     gCanvas.addEventListener('touchstart', onDown);
+    gCanvas.addEventListener('touchmove', onMove);
     gCanvas.addEventListener('touuchend', onUp);
 }
 
@@ -191,52 +173,52 @@ function drawLines() {
     gMeme.lines.forEach((line, idx) => {
         gCtx.strokeStyle = '#000'
         onDrawText(line.txt, line.pos, idx)
-        var textW = gCtx.measureText(line.txt).width + 20
+        var textW = gCtx.measureText(line.txt).width
+        var textH = line.size
         line.width = textW
-        var textH = line.size * 1.5
-        if (gFontAlign === 'center') {
-            var rectX = gCanvasW / 2 - textW / 2
-        } else if (gFontAlign === 'left') {
-            var rectX = gCanvasW / 2 - 10
-        }
-        var rectY = line.pos.y - line.size * 1.1
-        if (idx === gMeme.selectedLineIdx && line.txt) {
+        var rectX = line.pos.x - line.width / 2
+        var rectY = line.pos.y - line.size + 5
+
+        if (idx === gMeme.selectedLineIdx && line.txt && line.isActive) {
             gCtx.lineWidth = 1
             gCtx.strokeStyle = '#001'
-            gCtx.strokeRect(rectX, rectY, textW, textH)
+            gCtx.strokeRect(rectX - 10, rectY - 10, textW + 20, textH + 20)
+        }
+        if (line.isUnderline) {
+            gCtx.lineWidth = 2
+            gCtx.strokeStyle = '#000'
+            gCtx.strokeRect(line.pos.x - line.width / 2 - 2, line.pos.y + 4, line.width + 2, 1)
         }
     })
 }
 
 function onDrawText(text, pos, idx) {
+    let line = gMeme.lines[idx]
     gCtx.lineWidth = 5;
-    gCtx.textAlign = gFontAlign
-    gCtx.font = `${gMeme.lines[idx].size + 'px'} ${gFontFamily}`
-    pos.x = gCanvasW / 2
+    gCtx.textAlign = line.align
+    gCtx.font = `${line.size + 'px'} ${line.font}`
     gCtx.strokeText(text, pos.x, pos.y);
-    gCtx.fillStyle = gFontColor;
+    gCtx.fillStyle = line.color;
     gCtx.fillText(text, pos.x, pos.y);
 }
 
-function onAddNewText() {
-    var text = 'new line'
-    gCtx.lineWidth = 5;
-    gCtx.font = 50, gFontFamily
-    gCtx.strokeText(text, gCanvasW / 2 - 60, gCanvasH / 2);
-    gCtx.fillStyle = gFontColor;
-    gCtx.fillText(text, gCanvasW / 2 - 60, gCanvasH / 2);
+function onAddNewLine() {
     gMeme.lines.push({
-        txt: text,
+        txt: 'new line',
         size: 40,
-        color: gFontColor,
-        align: gFontAlign,
-        center: { x: 0, y: 0 },
+        color: '#fff',
+        align: 'center',
+        font: 'impact',
+        isUnderline: false,
+        isDrag: false,
         pos: {
-            x: (gCanvasW / 2 - 60),
+            x: gCanvasW / 2,
             y: gCanvasH / 2
         }
     })
     gMeme.selectedLineIdx = gMeme.lines.length - 1
+    drawImg()
+    drawLines()
 }
 
 function onDeleteText() {
@@ -245,7 +227,9 @@ function onDeleteText() {
         let idx = gMeme.selectedLineIdx;
         gMeme.lines.splice(idx, 1)
         drawImg()
+        drawLines()
     }
+    idx = 0
 }
 
 function onFontSize(diff) {
@@ -256,24 +240,27 @@ function onFontSize(diff) {
 }
 
 function onFontDirection(dir) {
-    gFontAlign = dir
+    gLine.align = dir
     drawImg()
     drawLines()
 }
 
 function setFont(font) {
-    gFontFamily = font
+    let line = gLine
+    line.font = font
+    drawImg()
+    drawLines()
 }
 
 function onFontColor(color) {
-    gFontColor = color
-}
-
-function clearCanvas() {
-    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+    let line = gMeme.lines[gMeme.selectedLineIdx]
+    line.color = color
+    drawImg()
+    drawLines()
 }
 
 function onChangeLine() {
+    const input = document.querySelector('.editor-controls input');
     if (gMeme.selectedLineIdx <= gMeme.lines.length - 1) {
         gMeme.selectedLineIdx++
         drawImg()
@@ -284,88 +271,116 @@ function onChangeLine() {
         drawImg()
         drawLines()
     }
-    var input = document.querySelector('.editor-controls input');
     input.value = gMeme.lines[gMeme.selectedLineIdx].txt
-}
-
-function onMoveLine(dir) {
-    if (dir === 'up') {
-        if (!gMeme.lines[gMeme.selectedLineIdx].pos.y) return
-        gMeme.lines[gMeme.selectedLineIdx].pos.y -= 5
-        drawImg()
-        drawLines()
-    }
-    if (dir === 'down') {
-        if (!gMeme.lines[gMeme.selectedLineIdx].pos.y) return
-        gMeme.lines[gMeme.selectedLineIdx].pos.y += 5
-        drawImg()
-        drawLines()
-    }
+    input.focus();
+    input.select();
 }
 
 function onShare() {
 }
 
 function onDownloadCanvas(elLink) {
+    gMeme.lines.find(line => {
+        if (line.isActive)
+            return line.isActive = false
+    })
+    drawImg()
+    drawLines()
     const data = gCanvas.toDataURL();
     console.log('DATA', data);
     elLink.href = data;
     elLink.download = `Your-Meme`;
 }
 
-// function onFontUnderLine() {
-//     console.log(g);
-// }
+function onDown(ev) {
+    const pos = getEvPos(ev)
+    if (!lineClicked(pos)) return
+    gStartPos = pos
+    document.body.style.cursor = 'grabbing'
+}
+
+function getEvPos(ev) {
+    var pos = {
+        x: ev.offsetX,
+        y: ev.offsetY
+    }
+    if (gTouchEvs.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+        }
+    }
+    return pos
+}
+
+function lineClicked(clickedPos) {
+    let pos = clickedPos
+
+    let line = gMeme.lines.find((line, idx) => {
+        if (pos.x > line.pos.x - line.width / 2 && pos.x < line.pos.x + line.width / 2 &&
+            pos.y > line.pos.y - line.size && pos.y < line.pos.y + line.size / 2) {
+            line.isDrag = true
+            line.isActive = true
+            gMeme.selectedLineIdx = idx
+            return true
+        }
+        line.isActive = false
+    })
+    document.body.style.cursor = 'grab'
+    drawImg()
+    drawLines()
+    const input = document.querySelector('.editor-controls input');
+    input.value = gMeme.lines[gMeme.selectedLineIdx].txt
+    return line
+}
+
+function onMove(ev) {
+    const line = gMeme.lines[gMeme.selectedLineIdx]
+    if (line.isDrag) {
+        const pos = getEvPos(ev)
+        const dx = pos.x - gStartPos.x
+        const dy = pos.y - gStartPos.y
+        moveLineOnCanvas(dx, dy)
+        gStartPos = pos
+    }
+    drawImg()
+    drawLines()
+}
+
+function moveLineOnCanvas(dx, dy) {
+    const line = gMeme.lines[gMeme.selectedLineIdx]
+    line.pos.x += dx
+    line.pos.y += dy
+}
+
+function onUp() {
+    let line = gMeme.lines.forEach((line) => {
+        line.isDrag = false
+    })
+    drawImg()
+    drawLines()
+    document.body.style.cursor = 'grab'
+}
+
+function onFontUnderLine() {
+    let line = gMeme.lines[gMeme.selectedLineIdx]
+    if (!line.isUnderline) {
+        line.isUnderline = true
+        drawImg()
+        drawLines()
+        return
+    }
+    if (line.isUnderline) {
+        line.isUnderline = false
+        drawImg()
+        drawLines()
+        return
+    }
+}
+
 // function onMoveStickers(diff) {
 //     console.log(g);
 // }
-// function moveTextManual(line, x, y) {
-//     var line = line
-//     console.log(line);
-//     line.pos.x = x
-//     line.pos.y = y
-//     drawImg()
-//     drawLines()
-// }
-// function getLine() {
-//     return gLine = gMeme.lines[gMeme.selectedLineIdx]
-// }
 
-// function isLineClicked(clickedPos) {
-//     // var pos = getCursorPos(event)
-//     const { pos } = gLine.pos
-//     gMeme.lines.forEach((line) => {
-
-//         if (pos.x > gCanvasW / 2 - line.width / 2 + 25 &&
-//             pos.x < gCanvasW / 2 + line.width / 2 - 25 &&
-//             pos.y > line.pos.y - line.size &&
-//             pos.y < line.pos.y + line.size / 2) {
-//             return true
-//             //     gCanvas.style.cursor = 'grab'
-//             //     moveTextManual(line, pos.x, pos.y)
-//         }
-//         return false
-//     })
-
-// }
-// console.log(isLineClicked());
-
-// function getCursorPos(x, y) {
-
-//     // return { x, y }
-// }
-
-// function onDown() {
-//     const pos = getEvPos(ev)
-//     if (!isLineClicked(pos)) return
-//     setLineDrag(true)
-//     gStartPos = pos
-//     document.body.style.cursor = 'grabbing'
-// }
-
-// function onMove() {
-
-// }
-// function onUp() {
-
-// }
