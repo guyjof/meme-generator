@@ -12,7 +12,7 @@
 <body onload="initEditor()">
     <header class="flex center">
         <div class="logo">
-            <h1><a href="index.html">logo</a></h1>
+            <h1><a href="../index.html">logo</a></h1>
         </div>
         <nav>
             <div class="nav-btns">
@@ -29,11 +29,22 @@
     </header>
     <main>
         <aside class="menu">
-            <ul>
-                <li><a href="../index.html">Gallery</a></li>
-                <li><a href="memes.html">My Memes</a></li>
-                <li><a href="about.html">About</a></li>
-            </ul>
+            <div class="user center">
+                <div class="user-img">
+                    <img src="../img/icons/user icon.png" alt="">
+                </div>
+                <div>
+                    <p>Hello, User</p>
+                    <span>Sign up</span>
+                </div>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="../index.html">Gallery</a></li>
+                    <li><a href="memes.html">My Memes</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
         </aside>
         <!-- onmouseover="getCursorPos(event.offsetX,event.offsetY)"
             onmousedown="checkIfLineClicked(), moveTextManual()" -->
@@ -99,7 +110,6 @@
     </main>
 
     <script src="../js/services/storageServices.js"></script>
-    <!-- <script src="../js/services/line-service.js.js"></script> -->
     <script src="../js/services/canvasService.js"></script>
     <script src="../js/controller.js"></script>
 </body>

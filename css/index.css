@@ -137,7 +137,6 @@ li:focus {
   width: 90%;
   background: #fff;
   color: #2ab57f;
-  /* justify-content: flerx-start; */
   z-index: 1;
   transition: transform 0.7s ease;
   flex-direction: column;
@@ -233,7 +232,6 @@ li:focus {
     color: #25a77e;
     background-color: #fff;
     border-radius: 3em;
-    margin-inline-end: 1rem;
   }
 }
 
@@ -292,6 +290,7 @@ form {
   padding: 0.4em 1em;
   color: #30bb72;
   font-size: 30px;
+  cursor: pointer;
 }
 
 .keywords-controls {
@@ -335,6 +334,15 @@ form {
   border-radius: 10px;
   box-shadow: 0px 5px 10px 3px rgba(0, 0, 0, 0.34);
 }
+.img-container {
+  transition: all 0.5s ease-in-out;
+  position: relative;
+}
+.img-container:hover {
+  transform: scale(1.05);
+  transition: transform 0.5s ease-in-out;
+}
+
 @media only screen and (max-width: 468px) {
   .grid-container {
     grid-template-columns: repeat(auto-fit, minmax(170px, 170px));
@@ -347,7 +355,6 @@ form {
     width: 100%;
     background-color: #22252c;
     color: #76787c;
-    padding: 0.8em;
     border-radius: 3em;
     border: none;
     outline: none;
